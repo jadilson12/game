@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Primeiro Jogo Multi-player</title>
+  <style>
+    body {
+      background: black;
+    }
+
+    #screen {
+      border: 10px solid #ccc;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      image-rendering: -moz-crisp-edges;
+      width: 400px;
+      height: 400px;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="screen" width="10" height="10"></canvas>
+
+  <script type="module">
+    import createKeyboardListener from './keyboard-listener.js'
+    import createGame from './game.js'
+    import renderScreen from './render-screen.js'
+
+    const game = createGame()
+    const KeyboardListener = createKeyboardListener(document)
+    KeyboardListener.subscribe(game.movePlayer)
+
+    const screen = document.getElementById('screen')
+    renderScreen(screen, requestAnimationFrame, game)
+
+    game.addPlayer({ playerId: 'player1', playerX: 0, playerY: 0 })
+    game.addPlayer({ playerId: 'player2', playerX: 4, playerY: 1 })
+    game.addPlayer({ playerId: 'player3', playerX: 6, playerY: 0 })
+    game.addFruit({ fruitId: 'fruit1', fruitX: 3, fruitY: 3 })
+
+  </script>
+</body>
+
+</html>
